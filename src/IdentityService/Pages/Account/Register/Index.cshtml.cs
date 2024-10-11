@@ -26,6 +26,8 @@ namespace IdentityService.Pages.Register
         [BindProperty]
         public bool RegisterSuccess { get; set; }
 
+        public string RegisterErrorDescription { get; set; }
+
         public IActionResult OnGet(string returnUrl)
         {
             Input = new RegisterViewModel{
@@ -58,6 +60,11 @@ namespace IdentityService.Pages.Register
                     });
 
                     RegisterSuccess = true;
+                }
+                else
+                {
+                    RegisterSuccess = false;
+                    RegisterErrorDescription = result.Errors.FirstOrDefault().Description;
                 }
             }
 
