@@ -34,6 +34,11 @@ public sealed class SecurityHeadersAttribute : ActionFilterAttribute
             // also an example if you need client images to be displayed from twitter
             // csp += "img-src 'self' https://pbs.twimg.com;";
 
+            if (context.HttpContext.Request.Host.Host == "localhost")
+            {
+                csp += " connect-src 'self' wss://localhost:55120;";
+            }
+
             // once for standards compliant browsers
             if (!context.HttpContext.Response.Headers.ContainsKey("Content-Security-Policy"))
             {
